@@ -10,20 +10,33 @@ import java.io.PrintWriter;
 public class TekstServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nasztekst = request.getParameter("nasztekst");
-        String[] wyrazy=nasztekst.split(" ");
+        String[] wyrazy = nasztekst.split(" ");
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
 
         PrintWriter writer = response.getWriter();
         writer.print(nasztekst);
-        writer.print("Ilość słów: "+wyrazy.length);
+        writer.print("<br>");
+        writer.print("Ilość słów: " + wyrazy.length);
+        writer.print("<br>");
 
-        int ileZnakow=nasztekst.length();
-        writer.print("Ilość znaków: "+ileZnakow);
+        int ileZnakow = nasztekst.length();
+        writer.print("Ilość znaków: " + ileZnakow);
+        writer.print("<br>");
 
-        String replace = nasztekst.replace(" ",""); //usuwa spacje
-        int ileZnakowCzarnych=replace.length();   // liczy czarne zanki
-        writer.print("Ilość czarnych znaków to "+ ileZnakowCzarnych);
+        String replace = nasztekst.replace(" ", ""); //usuwa spacje
+        int ileZnakowCzarnych = replace.length();   // liczy czarne zanki
+        writer.print("Ilość czarnych znaków to " + ileZnakowCzarnych);
+        writer.print("<br>");
+
+        StringBuilder stringBuilder = new StringBuilder(nasztekst);
+        stringBuilder.reverse();
+
+        if (nasztekst.equals(stringBuilder.toString())) {
+            writer.print("Tekst jest palindromem");
+        } else {
+            writer.print("Tekst nie jest palindromem");
+        }
     }
 }
